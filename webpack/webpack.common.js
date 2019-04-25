@@ -4,11 +4,16 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const autoprefixer =require('autoprefixer')
 require('@babel/core')
 
+
+
 module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: 'js/bundle.js'
+    },
+    resolve:{
+        extensions: ['.js', '.jsx', '.scss']
     },
     module:{
         rules: [
@@ -25,11 +30,20 @@ module.exports = {
                    }],
              },
             {
-                use:[
+                use:[ 
                     'style-loader?sourceMap',
                     MiniCssExtractPlugin.loader,
                     'css-loader?sourceMap',
-                   
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                          autoprefixer: {
+                            browser: ['last 2 versions']
+                          },
+                          sourceMap: true,
+                          plugins: () => [autoprefixer]
+                        }
+                      },
                     'resolve-url-loader', // requiere sourcemap en sass
                     'sass-loader?sourceMap'              
                 ],
