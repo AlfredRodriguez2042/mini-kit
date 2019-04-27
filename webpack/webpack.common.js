@@ -1,25 +1,32 @@
 const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const autoprefixer =require('autoprefixer')
 require('@babel/core')
 
 
-
+const isDev = 'develpment'
 module.exports = {
+    
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, '../dist'),
+        //publicPath: '/',
         filename: 'js/bundle.js'
     },
     resolve:{
-        extensions: ['.js', '.jsx', '.scss']
+        extensions: ['.js', '.jsx', '.scss', '.json'],
+        alias: {
+            'react-dom': '@hot-loader/react-dom'
+        }
     },
+    
     module:{
         rules: [
             { 
                 use: 'babel-loader',
-                test: /\.(js|jsx)$/,
+                test: /\.(js|jsx|json)$/,
                 exclude: /node_modules/
             },
              {   
@@ -31,7 +38,7 @@ module.exports = {
              },
             {
                 use:[ 
-                    'style-loader?sourceMap',
+                   // 'style-loader?sourceMap',
                     MiniCssExtractPlugin.loader,
                     'css-loader?sourceMap',
                     {
@@ -86,6 +93,12 @@ module.exports = {
                 useShortDoctype: true
               }
             
-        })
+        }),
+        new webpack.DefinePlugin({
+            "process.env": {
+                NODE_ENV: JSON.stringify("development")
+            }
+        }),
+        new webpack.HotModuleReplacementPlugin()
     ]
 }
