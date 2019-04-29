@@ -1,22 +1,25 @@
 # mini-kit
 this is a mini-kit personal project using the following  tecnologies :
+
 **Front-end**
--[React](https://reactjs.org/) / if you dont like React, you can use vanilla JS 
--[React-Router](https://reacttraining.com/react-router/web/guides/quick-start)
--[sass](https://sass-lang.com/)
--[Redux](https://redux.js.org/)
--[React-Redux](https://react-redux.js.org/)
+
+-[React](https://reactjs.org/) / if you dont like React, you can use vanilla JS <br>
+-[React-Router](https://reacttraining.com/react-router/web/guides/quick-start)<br>
+-[sass](https://sass-lang.com/)<br>
+-[Redux](https://redux.js.org/)<br>
+-[React-Redux](https://react-redux.js.org/)<br>
 
 **Backend**
--[express](https://expressjs.com/)
--[MongoDB](https://www.mongodb.com/)
--[Node](https://nodejs.org/en/)
+
+-[express](https://expressjs.com/)<br>
+-[MongoDB](https://www.mongodb.com/)<br>
+-[Node](https://nodejs.org/en/)<br>
 
 **Compiler**
+
 -[Webpack](https://webpack.js.org/)
 
 
-**Note: in construction!**
 
 ## Requeriments
 
@@ -37,3 +40,4 @@ Runs the kit in the development mode.<br>
 Open [http://localhost:8080](http://localhost:8080) to view it in the browser.
 
 ### `npm run build`
+**Note: in construction!**
