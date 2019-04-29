@@ -6,7 +6,7 @@ const { mongoose } = require('./database')
 const app = express()
 
 // Settings
-app.set('port', process.env.PORT || 4040)
+app.set('port', process.env.PORT || 8080)
 
 //Middlewares
 app.use(morgan('dev'))
@@ -17,10 +17,11 @@ app.use(express.json())
 app.use('/api/users', require('./routes'))
 
 //Static Files
-//app.use(express.static())
+app.use(express.static(path.join(__dirname, '../src/public')))
+console.log(path.join(__dirname, '../src/public'))
 
 //Start Server
 app.listen(app.get('port'), ()=>
-console.log('>>> 🌎  Server on Port', app.get('port')))
+console.log('>>>  🌎   Server on Port', app.get('port')))
 
 

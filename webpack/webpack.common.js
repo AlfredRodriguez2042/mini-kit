@@ -11,12 +11,11 @@ module.exports = {
     
     entry: './src/index.js',
     output: {
-        path: path.resolve(__dirname, '../dist'),
         //publicPath: '/',
         filename: 'js/bundle.js'
     },
     resolve:{
-        extensions: ['.js', '.jsx', '.scss', '.json'],
+        extensions: ['.js', '.jsx', '.scss', '.json','.html'],
         alias: {
             'react-dom': '@hot-loader/react-dom'
         }
@@ -38,7 +37,7 @@ module.exports = {
              },
             {
                 use:[ 
-                   // 'style-loader?sourceMap',
+                    'style-loader?sourceMap',
                     MiniCssExtractPlugin.loader,
                     'css-loader?sourceMap',
                     {
@@ -83,7 +82,7 @@ module.exports = {
             filename: '[name].css'
         }),
         new HtmlWebpackPlugin({
-            template: './src/index.html',
+            template: './src/public/index.html',
             minify: {
                 collapseWhitespace: true,
                 removeComments: true,

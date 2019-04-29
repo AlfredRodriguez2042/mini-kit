@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
-import { Route, BrowserRouter as Router, Redirect, Switch, Link } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
-// Paths
-import Home from './views/Home'
-import About from './views/About'
-import Page404 from './views/Page404'
+// Router
+import AppRoutes from './routes'
+
+// Components
+import Header from './Components/Header'
+
+import store from '../redux/store'
 
 //Styles
 import '../scss/main.scss'
@@ -19,26 +23,14 @@ class App extends Component{
         return this.state.loading === false
         ? <div className="preloader">LOADING....</div>
         : (
+   <Provider store={store}>
      <Router>
-        <>
-      <header>
-         <nav>
-            <ul>
-              <li> <Link to="/">Home</Link> </li>
-               <li> <Link to="/about">About</Link> </li>
-             </ul>
-             </nav>
-     </header>
-            <div>
-                <Switch>
-                    <Route exact path='/' component={Home} />
-                    <Route path='/about' component={About} />
-                    <Route component={Page404} />
-                </Switch>
-            </div>
-
-                </>
-            </Router>
+        <>  
+          <Header/>        
+          <AppRoutes/>
+           </>
+         </Router>
+          </Provider>
         );
     }
 }
