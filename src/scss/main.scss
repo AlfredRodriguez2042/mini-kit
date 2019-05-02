@@ -10,6 +10,7 @@ This boilerplate is based in ITCSS and SMACSS
 @import './helpers/mixins';
 
 // Components / modules 
+@import './components/user';
 @import './components/logo';
 @import './components/menu';
 @import './components/buttons';

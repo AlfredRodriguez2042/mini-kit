@@ -5,7 +5,7 @@ console.log(path.resolve(__dirname, '../src/public'))
 module.exports = merge(common, {
     output: {
         path: path.resolve(__dirname, '../src/public'),
-        
+        publicPath: '/'
     },
     mode: 'development',
     devtool: 'eval',

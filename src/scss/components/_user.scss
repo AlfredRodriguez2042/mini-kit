@@ -1,0 +1,32 @@
+.content_users{
+    width:90%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2em;
+     @media (min-width: 960px) {
+         width: 80%;
+         
+     }   
+    
+}
+.content_user{
+    flex: auto;
+    width: 200px;
+    padding: .5em;
+    line-height: 1.5em;
+    border: 1px solid grey;
+}
+.content_title{
+    width: 100%;
+    text-align: center;
+}
+
+.hook_title{
+    line-height: 2em;
+    margin: .5em;
+}
+.hook_video{
+    width: 100%;
+    text-align: center;
+}

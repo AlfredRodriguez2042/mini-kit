@@ -40,4 +40,10 @@ Runs the kit in the development mode.<br>
 Open [http://localhost:8080](http://localhost:8080) to view it in the browser.
 
 ### `npm run build`
+
+try to testing first
+
+### `npm run server`
+
+have some probles whith reload
 **Note: in construction!**
