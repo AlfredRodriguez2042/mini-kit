@@ -55,6 +55,7 @@
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "react-router-dom": "^5.0.0",
-    "rimraf": "^2.6.3"
+    "rimraf": "^2.6.3",
+    "tar": "^4.4.8"
   }
 }
