@@ -1,103 +1,104 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const autoprefixer =require('autoprefixer')
-require('@babel/core')
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const autoprefixer = require("autoprefixer");
+const postcssPresetEnv = require("postcss-preset-env");
+const { plugins } = require("./webpack.plugins");
 
+require("@babel/core");
 
-const isDev = 'develpment'
+const isDevelopment = "development";
+const isProduction = "production";
 module.exports = {
-    
-    entry: './src/index.js',
-    output: {
-        //publicPath: '/',
-        filename: 'js/bundle.js'
+  entry: "./src/index.js",
+  resolve: {
+    extensions: [".js", ".jsx", ".scss", ".json", ".html"],
+    alias: {
+      "react-dom": "@hot-loader/react-dom",
     },
-    resolve:{
-        extensions: ['.js', '.jsx', '.scss', '.json','.html'],
-        alias: {
-            'react-dom': '@hot-loader/react-dom'
-        }
-    },
-    
-    module:{
-        rules: [
-            { 
-                use: 'babel-loader',
-                test: /\.(js|jsx|json)$/,
-                exclude: /node_modules/
-            },
-             {   
-                test: /\.html$/,
-               use:[{
-                    loader: 'html-loader',
-                    options: { minimaze: true}
-                   }],
-             },
-            {
-                use:[ 
-                    'style-loader?sourceMap',
-                    MiniCssExtractPlugin.loader,
-                    'css-loader?sourceMap',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                          autoprefixer: {
-                            browser: ['last 2 versions']
-                          },
-                          sourceMap: true,
-                          plugins: () => [autoprefixer]
-                        }
-                      },
-                    'resolve-url-loader', // requiere sourcemap en sass
-                    'sass-loader?sourceMap'              
-                ],
-                test: /\.(css|scss)$/
-            },
-            {   
-                test: /\.(jpe?g|png|gif|svg|webp)$/i,
-                use:[ 
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[ext]',
-                            outputPath: 'assets/',
-                            useRelativePath: true
-                        }
-                    },
-                    'image-webpack-loader?bypassOnDebug' // option de optimizacion por defecto en produccion
-                 ]
-            },
-            {
-                test: /\.(ttf|eot|woff2?|mp4|mp3|txt|xml|pdf)$/i,
-                use: 'file-loader?name=assets/[name].[ext]'
-            },
+  },
 
-        
-        ]
-    },
-    plugins: [
-        new MiniCssExtractPlugin({
-            filename: '[name].css'
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/public/index.html',
-            minify: {
-                collapseWhitespace: true,
-                removeComments: true,
-                removeRedundantAttributes: true,
-                removeScriptTypeAttributes: true,
-                removeStyleLinkTypeAttributes: true,
-                useShortDoctype: true
-              }
-            
-        }),
-        new webpack.DefinePlugin({
-            "process.env": {
-                NODE_ENV: JSON.stringify("development")
-            }
-        }),
-        new webpack.HotModuleReplacementPlugin()
-    ]
-}
+  module: {
+    rules: [
+      {
+        use: "babel-loader",
+        test: /\.(js|jsx|json)$/,
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader",
+          },
+        ],
+      },
+      {
+        use: [
+          { loader: "style-loader" },
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: { esModule: false },
+          },
+          {
+            loader: "css-loader",
+            options: { sourceMap: true, importLoaders: 1 },
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              sourceMap: true,
+              postcssOptions: {
+                plugins: [
+                  [
+                    postcssPresetEnv({
+                      browsers: "last 2 versions",
+                      autoprefixer: {
+                        flexbox: "no-2009",
+                      },
+                    }),
+                    autoprefixer,
+                    {
+                      // Options
+                    },
+                  ],
+                ],
+              },
+            },
+          },
+
+          { loader: "resolve-url-loader" }, // requiere sourcemap en sass
+          { loader: "sass-loader", options: { sourceMap: true } },
+        ],
+        test: /\.(css|scss)$/i,
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg|webp)$/i,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]",
+              outputPath: "assets/",
+              useRelativePath: true,
+            },
+          },
+        ],
+      },
+      {
+        loader: "image-webpack-loader",
+        options: {
+          bypassOnDebug: true, // webpack@1.x
+          disable: true, // webpack@2.x and newer
+        },
+      },
+      {
+        test: /\.(ttf|eot|woff2?|mp4|mp3|txt|xml|pdf)$/i,
+        //   use: "file-loader?name=assets/[name].[ext]",
+        loader: "file-loader",
+        options: "assets/[path][name].[ext]",
+      },
+    ],
+  },
+
+  plugins,
+};
